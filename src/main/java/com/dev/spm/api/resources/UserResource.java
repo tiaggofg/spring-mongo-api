@@ -1,6 +1,8 @@
 package com.dev.spm.api.resources;
 
 import com.dev.spm.api.domain.User;
+import com.dev.spm.api.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +17,12 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserResource {
 
+    @Autowired
+    UserService userService;
+
     @GetMapping
     public ResponseEntity<List<User>> findAll() {
-        User alex = new User("1", "Alex Green", "alex.green@mail.com");
-        User maria = new User("2", "Maria Brown", "maria.brown@mail.com");
-        List<User>  users = new ArrayList<>();
-        users.addAll(Arrays.asList(alex, maria));
+        List<User> users = userService.findAll();
         return ResponseEntity.ok().body(users);
     }
 
