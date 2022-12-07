@@ -5,11 +5,10 @@ import com.dev.spm.api.dtos.UserDto;
 import com.dev.spm.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,4 +31,24 @@ public class UserResource {
         return ResponseEntity.ok().body(user);
     }
 
+    @PostMapping
+    public ResponseEntity<Void> save(@RequestBody UserDto userDto) {
+        User user = userService.save(UserDto.toUser(userDto));
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@PathVariable String id, @RequestBody UserDto userDto) {
+        userDto.setId(id);
+        User user = UserDto.toUser(userDto);
+        userService.update(user);
+        return ResponseEntity.noContent().build();
+    }
 }
