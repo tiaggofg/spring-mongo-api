@@ -1,8 +1,7 @@
 package com.dev.spm.api.services;
 
 import com.dev.spm.api.domain.User;
-import com.dev.spm.api.dtos.UserDto;
-import com.dev.spm.api.repository.UserRepository;
+import com.dev.spm.api.repositories.UserRepository;
 import com.dev.spm.api.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

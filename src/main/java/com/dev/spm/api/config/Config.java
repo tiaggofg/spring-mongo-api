@@ -3,8 +3,8 @@ package com.dev.spm.api.config;
 import com.dev.spm.api.domain.Post;
 import com.dev.spm.api.domain.User;
 import com.dev.spm.api.dtos.AuthorDto;
-import com.dev.spm.api.repository.PostRepository;
-import com.dev.spm.api.repository.UserRepository;
+import com.dev.spm.api.repositories.PostRepository;
+import com.dev.spm.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -40,6 +40,10 @@ public class Config implements CommandLineRunner {
         Post p1 = new Post(null, sdf.parse("21/11/2022"), "Partiu viajar", "Vou viajar para São Paulo, abraços!", new AuthorDto(maria));
         Post p2 = new Post(null, sdf.parse("31/11/2022"), "Bom dia", "Acordei feliz hoje", new AuthorDto(alex));
 
+        maria.getPosts().add(p1);
+        alex.getPosts().add(p2);
+
         postRepository.saveAll(Arrays.asList(p1, p2));
+        userRepository.saveAll(Arrays.asList(maria, alex));
     }
 }

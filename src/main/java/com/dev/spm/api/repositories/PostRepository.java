@@ -1,4 +1,4 @@
-package com.dev.spm.api.repository;
+package com.dev.spm.api.repositories;
 
 import com.dev.spm.api.domain.Post;
 import org.springframework.data.mongodb.repository.MongoRepository;

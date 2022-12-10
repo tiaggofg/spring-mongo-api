@@ -1,5 +1,6 @@
 package com.dev.spm.api.resources;
 
+import com.dev.spm.api.domain.Post;
 import com.dev.spm.api.domain.User;
 import com.dev.spm.api.dtos.UserDto;
 import com.dev.spm.api.services.UserService;
@@ -50,5 +51,11 @@ public class UserResource {
         User user = UserDto.toUser(userDto);
         userService.update(user);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+         User user = userService.findById(id);
+         return ResponseEntity.ok().body(user.getPosts());
     }
 }
