@@ -14,14 +14,17 @@ public class ResourceExceptionHandler {
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
-        StandardError error = new StandardError(System.currentTimeMillis(), status.value(), e.getMessage(), request.getRequestURI());
+        String path = request.getRequestURI() + "/" + request.getQueryString();
+        StandardError error = new StandardError(System.currentTimeMillis(), status.value(), e.getMessage(), path);
         return ResponseEntity.status(status).body(error);
     }
 
     @ExceptionHandler(DecodeParamException.class)
     public ResponseEntity<StandardError> decodeException(DecodeParamException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
-        StandardError error = new StandardError(System.currentTimeMillis(), status.value(), e.getMessage(), request.getRequestURI());
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        String path = request.getRequestURI() + "/" + request.getQueryString();
+        StandardError error = new StandardError(System.currentTimeMillis(), status.value(), e.getMessage(), path);
         return ResponseEntity.status(status).body(error);
     }
+
 }

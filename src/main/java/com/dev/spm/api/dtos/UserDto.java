@@ -14,11 +14,12 @@ public class UserDto implements Serializable {
     public UserDto() {
     }
 
-    public  UserDto(User obj) {
+    public UserDto(User obj) {
         this.id = obj.getId();
         this.name = obj.getName();
         this.email = obj.getEmail();
     }
+
     public static User toUser(UserDto obj) {
         return new User(obj.getId(), obj.getName(), obj.getEmail());
     }
