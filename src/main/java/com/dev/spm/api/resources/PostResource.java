@@ -32,4 +32,13 @@ public class PostResource {
         }
         return ResponseEntity.ok().body(post);
     }
+    @GetMapping(value = "/searchInTheBody")
+    public ResponseEntity<List<Post>> findByBody(@RequestParam(value = "text") String text) {
+        String search = Url.decoder(text);
+        List<Post> posts = postService.findByBody(text);
+        if (posts.isEmpty()) {
+            throw new ObjectNotFoundException("Não foram enconstrados posts contendo " + search);
+        }
+        return ResponseEntity.ok().body(posts);
+    }
 }
