@@ -18,4 +18,10 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(error);
     }
 
+    @ExceptionHandler(DecodeParamException.class)
+    public ResponseEntity<StandardError> decodeException(DecodeParamException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
+        StandardError error = new StandardError(System.currentTimeMillis(), status.value(), e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(error);
+    }
 }
